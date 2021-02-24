@@ -1,0 +1,11 @@
+version: "2"
+services:
+  database:
+    image: postgres:13.2
+    environment:
+      - POSTGRES_USER=offer
+      - POSTGRES_PASSWORD=123offerabc
+      - POSTGRES_DB=offer
+    ports:
+      - 5433:5432
+
