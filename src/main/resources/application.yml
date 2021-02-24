@@ -6,8 +6,8 @@ spring:
       ddl-auto: update
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/offer
+    url: jdbc:postgresql://localhost:5433/offer
     username: offer
-    password: offer123
+    password: 123offerabc
     driverClassName: org.postgresql.Driver
 
