@@ -1,6 +1,6 @@
 version: "2"
 services:
-  database:
+  database1:
     image: postgres
     environment:
       - POSTGRES_USER=offer
@@ -8,4 +8,12 @@ services:
       - POSTGRES_DB=offer
     ports:
       - 5433:5432
+  database2:
+      image: postgres
+      environment:
+        - POSTGRES_USER=conversion
+        - POSTGRES_PASSWORD=123conversionabc
+        - POSTGRES_DB=conversion
+      ports:
+        - 5434:5432
 

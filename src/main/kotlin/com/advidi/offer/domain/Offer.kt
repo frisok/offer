@@ -8,7 +8,7 @@ import javax.persistence.Id
 data class Offer(
 
         @Id
-        val id: Int,
+        val id: Long,
 
         @Column
         val url: String,

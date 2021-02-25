@@ -1,13 +1,22 @@
+server:
+  port: 8081
 spring:
   jpa:
     database: POSTGRESQL
     show-sql: true
     hibernate:
       ddl-auto: update
+offer:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5433/offer
+    jdbc-url: jdbc:postgresql://localhost:5433/offer
     username: offer
     password: 123offerabc
     driverClassName: org.postgresql.Driver
-
+conversion:
+  datasource:
+    platform: postgres
+    jdbc-url: jdbc:postgresql://localhost:5434/conversion
+    username: conversion
+    password: 123conversionabc
+    driverClassName: org.postgresql.Driver

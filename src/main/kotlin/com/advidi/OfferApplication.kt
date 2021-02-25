@@ -1,4 +1,4 @@
-package com.advidi.offer
+package com.advidi
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
