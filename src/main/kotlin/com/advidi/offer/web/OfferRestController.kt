@@ -1,18 +1,16 @@
 package com.advidi.offer.web
 
 import com.advidi.offer.domain.Offer
+import com.advidi.offer.service.OfferService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class OfferRestController
+class OfferRestController(private val offerService: OfferService) {
 
-@GetMapping(produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
-fun getOffers(): List<Offer> {
-    return listOf(
-            Offer(1, "www.test.com/1", "first"),
-            Offer(2, "www.test.com/2", "second"),
-            Offer(3, "www.test.com/3", "third")
-    )
+    @GetMapping("/offer", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getOffers(): List<Offer> = offerService.findAll()
+
 }
