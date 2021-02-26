@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/offer")
 class OfferRestController(private val offerService: OfferService) {
 
-    @GetMapping("/offer", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/all", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getOffers(): List<Offer> = offerService.findAll()
 
 }

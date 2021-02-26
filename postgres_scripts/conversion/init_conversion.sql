@@ -1,8 +1,8 @@
 CREATE TABLE conversion (
-    id        BIGINT PRIMARY KEY,
-    offer_idd BIGINT,
-    affiliate BIGINT,
-    timestamp TIMESTAMP,
-    payout    FLOAT(4),
-    received  FLOAT(4)
+    id        bigint primary key,
+    offer_id  bigint,
+    affiliate bigint,
+    timestamp timestamp,
+    payout    float(4),
+    received  float(4)
 );

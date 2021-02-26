@@ -12,7 +12,7 @@ data class Conversion(
         @Id
         val id: Long,
 
-        @Column
+        @Column(name = "offer_id")
         val offerId: Long,
 
         @Column

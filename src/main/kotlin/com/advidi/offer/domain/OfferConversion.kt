@@ -1,7 +1,7 @@
 package com.advidi.offer.domain
 
 import java.math.BigDecimal
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -14,13 +14,13 @@ data class OfferConversion(
         val id: Long,
 
         @Column
-        val timestamp: ZonedDateTime,
+        val timestamp: LocalDateTime,
 
         @Column
-        val payout: BigDecimal,
+        val payoutTotal: BigDecimal,
 
         @Column
-        val received: BigDecimal,
+        val receivedTotal: BigDecimal,
 
         @ManyToOne
         val offer: Offer
