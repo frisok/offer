@@ -2,27 +2,26 @@ package com.advidi.offer.domain
 
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
-@Entity
-data class OfferConversion(
-
-        @Id
-        val id: Long,
+@Entity(name = "offer_conversion")
+class OfferConversion(
 
         @Column
-        val timestamp: LocalDateTime,
+        var timestamp: LocalDateTime,
 
-        @Column
-        val payoutTotal: BigDecimal,
+        @Column(name = "payout_total")
+        var payoutTotal: BigDecimal,
 
-        @Column
-        val receivedTotal: BigDecimal,
+        @Column(name = "received_total")
+        var receivedTotal: BigDecimal,
 
         @ManyToOne
-        val offer: Offer
+        var offer: Offer
 
-)
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "sequence_generator", allocationSize = 1)
+    var id: Long = 0
+}

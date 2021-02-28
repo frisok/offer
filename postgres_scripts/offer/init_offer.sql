@@ -13,3 +13,5 @@ CREATE TABLE offer_conversion (
     received_total float(8),
     offer_id bigint references offer(id)
 );
+
+CREATE SEQUENCE sequence_generator start 100000

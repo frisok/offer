@@ -2,27 +2,33 @@ package com.advidi.conversion.service
 
 import com.advidi.conversion.domain.Conversion
 import com.advidi.conversion.repository.ConversionRepository
-import com.opencsv.CSVReader
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.web.multipart.MultipartFile
-import java.io.InputStreamReader
-import java.time.LocalDateTime
+import org.springframework.transaction.annotation.Transactional
+
 
 @Service
-class ConversionsService() {
+@Transactional
+class ConversionsService {
+
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @Autowired
     private lateinit var conversionRepository: ConversionRepository;
 
+    fun getConversion(id: Long): Conversion = conversionRepository.getOne(id)
+
     fun findAll(): List<Conversion> = conversionRepository.findAll()
 
-    fun loadIntoDatabase(multipartFile: MultipartFile) {
-        val before: Long = System.currentTimeMillis()
-        val reader = CSVReader(InputStreamReader(multipartFile.inputStream))
-        reader.asSequence().forEach { line -> println(line[0]) }
-        val after: Long = System.currentTimeMillis()
-        println(after- before)
+    fun findUnpublished(): List<Conversion> {
+        return conversionRepository.findFirst2000ByPublishedOrderByTimestampAsc(false)
+    }
+
+    fun save(conversion: Conversion) = conversionRepository.save(conversion)
+
+    fun updatePublished(id: Long, published: Boolean = true) {
+        conversionRepository.updatePublished(id, published)
     }
 
 }
