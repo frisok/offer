@@ -17,7 +17,7 @@ class ConversionRestController(private val conversionsService: ConversionsServic
     private val log = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/all", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getConversions(): List<Conversion> = conversionsService.findAll()
+    fun getConversions(): ResponseEntity<List<Conversion>> = ResponseEntity.ok(conversionsService.findAll())
 
     @PostMapping("/upload", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], produces = [MediaType.TEXT_PLAIN_VALUE])
     fun uploadConversions(@RequestParam("file") multipartFile: MultipartFile): ResponseEntity<String> {
