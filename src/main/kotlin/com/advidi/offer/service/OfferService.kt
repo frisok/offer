@@ -40,7 +40,7 @@ class OfferService(private val offerRepository: OfferRepository, private val off
         }
 
         val result: List<OfferTotalsDto> = offers.stream()
-                .map { o -> convertToOfferTotals(o, startDate ?: LocalDateTime.now().minusYears(30), endDate?: LocalDateTime.now())}
+                .map { o -> mapToOfferTotals(o, startDate ?: LocalDateTime.now().minusYears(30), endDate ?: LocalDateTime.now())}
                 .collect(Collectors.toList())
 
         log.debug("Request to fetch OfferTotalsDto completed in ${stopWatch.getTime(TimeUnit.MILLISECONDS)} ms")
@@ -48,7 +48,7 @@ class OfferService(private val offerRepository: OfferRepository, private val off
         return PageImpl(result)
     }
 
-    private fun convertToOfferTotals(offer: Offer, startDate: LocalDateTime, endDate: LocalDateTime): OfferTotalsDto {
+    private fun mapToOfferTotals(offer: Offer, startDate: LocalDateTime, endDate: LocalDateTime): OfferTotalsDto {
 
         val firstOfferConversion: OfferConversion? = offerConversionService.findFirstOfferConversionAfter(offer, startDate)
         val lastOfferConversion: OfferConversion? = offerConversionService.findLastOfferConversionBefore(offer, endDate)

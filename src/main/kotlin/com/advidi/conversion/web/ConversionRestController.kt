@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile
 
 
 @RestController
-@RequestMapping("/conversion")
+@RequestMapping("/api/conversion")
 class ConversionRestController(private val conversionsService: ConversionsService, private val uploadService: UploadService) {
 
     private val log = LoggerFactory.getLogger(javaClass)
