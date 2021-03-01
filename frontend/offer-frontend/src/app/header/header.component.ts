@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import * as moment from 'moment';
 import {DATE_TIME_FORMAT, OfferService} from "../service/offer.service";
+import {AuthService} from "../service/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   searchForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private offerService: OfferService) {
+  constructor(private formBuilder: FormBuilder, private offerService: OfferService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit {
       sortItem: 'id',
       sortDirection: 'asc'
     }, searchValues['name'], searchValues['start'], searchValues['end']);
+  }
+
+  renderSearchForm(): boolean {
+    return this.authService.isAuthenticated();
   }
 
 }

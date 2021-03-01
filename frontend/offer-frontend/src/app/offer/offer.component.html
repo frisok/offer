@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="renderOffers()">
   <mat-table [dataSource]="datasource">
 
     <ng-container matColumnDef="offerId">

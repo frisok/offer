@@ -9,7 +9,6 @@ import * as moment from 'moment';
 })
 export class OfferService {
 
-  private apiBaseUrl: string = "http://localhost:8081/api";
   private offerTotalsUri: string = "/offer/totals";
 
   private offersSubject: BehaviorSubject<Page<OfferTotals>> = new BehaviorSubject<Page<OfferTotals>>({
@@ -40,7 +39,7 @@ export class OfferService {
     }
 
     this.httpClient.get<Page<OfferTotals>>(
-      `${this.apiBaseUrl}${this.offerTotalsUri}`,
+      `${API_BASE_URL}${this.offerTotalsUri}`,
       {params: httpParams})
       .subscribe(page => this.offersSubject.next(page));
   }
@@ -48,4 +47,5 @@ export class OfferService {
 
 }
 
+export const API_BASE_URL: string = "http://localhost:8081/api";
 export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';

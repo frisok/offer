@@ -23,11 +23,12 @@
     "@angular/router": "~11.2.3",
     "bootstrap": "^4.6.0",
     "jquery": "^3.5.1",
+    "moment": "latest",
+    "ngx-webstorage": "^7.0.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3",
-    "moment": "latest"
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.2",
