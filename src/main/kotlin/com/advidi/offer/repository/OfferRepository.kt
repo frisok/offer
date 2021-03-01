@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface OfferRepository : JpaRepository<Offer, Long> {
 
 
-    fun findByName(name: String, pageable: Pageable): Page<Offer>
+    fun findByNameContainingIgnoreCase(name: String, pageable: Pageable): Page<Offer>
 
 }

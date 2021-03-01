@@ -8,6 +8,7 @@ import com.advidi.offer.service.OfferService
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -29,8 +30,8 @@ class OfferRestController(private val offerService: OfferService, private val of
     @GetMapping("/totals", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getOfferConversionsFiltered(pageable: Pageable,
                                     @RequestParam(name = "name", required = false) name: String?,
-                                    @RequestParam(name = "start", required = false) startDate: LocalDateTime?,
-                                    @RequestParam(name = "end", required = false) endDate: LocalDateTime?): ResponseEntity<Page<OfferTotalsDto>> {
+                                    @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") startDate: LocalDateTime?,
+                                    @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") endDate: LocalDateTime?): ResponseEntity<Page<OfferTotalsDto>> {
         log.debug("GET request to '/api/offer/totals'")
         return ResponseEntity.ok(offerService.getOfferTotals(name, startDate, endDate, pageable))
     }

@@ -1,14 +1,26 @@
 import {CollectionViewer, DataSource} from "@angular/cdk/collections";
-import {OfferTotals, Pageable} from "../domain/model";
+import {OfferTotals, Page, Pageable} from "../domain/model";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {OfferService} from "./offer.service";
-import {catchError} from "rxjs/operators";
+import {catchError, finalize} from "rxjs/operators";
 
 export class OfferDatasource implements DataSource<OfferTotals> {
 
   private offerSubject: BehaviorSubject<OfferTotals[]> = new BehaviorSubject<OfferTotals[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
 
   constructor(private offerService: OfferService) {
+    this.offerService.offers$
+      .pipe(
+        catchError(() => of<Page<OfferTotals>>({content: [], totalPages: 0, totalElements: 0})),
+        finalize(() => this.loadingSubject.next(false))
+      )
+      .subscribe(data => {
+        this.loadingSubject.next(false)
+        this.offerSubject.next(data.content);
+      });
+
   }
 
   connect(collectionViewer: CollectionViewer): Observable<OfferTotals[]> {
@@ -17,17 +29,12 @@ export class OfferDatasource implements DataSource<OfferTotals> {
 
   disconnect(collectionViewer: CollectionViewer): void {
     this.offerSubject.complete();
+    this.loadingSubject.complete();
   }
 
   loadOffers(pageable: Pageable, name?: string, startDate?: Date, endDate?: Date): void {
-    this.offerService.findOfferTotals(pageable, name, startDate, endDate)
-      .pipe(
-        catchError(() => of([])),
-      )
-      .subscribe(data => {
-      data.content.forEach(d => console.log(d.name));
-      this.offerSubject.next(data.content);
-    });
+    this.loadingSubject.next(true);
+    this.offerService.findOfferTotals(pageable, name, startDate, endDate);
   }
 
 }

@@ -13,7 +13,7 @@ export class OfferComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  public displayedColumns: string[] = ['offerId','name','url','payoutTotal','receivedTotal'];
+  public displayedColumns: string[] = ['offerId', 'name', 'url', 'payoutTotal', 'receivedTotal'];
   public datasource: OfferDatasource;
 
   constructor(private offerService: OfferService) {
@@ -21,14 +21,7 @@ export class OfferComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.datasource = new OfferDatasource(this.offerService)
-    this.datasource.loadOffers(
-      {
-        pageNumber: 0,
-        pageSize: 10,
-        sortItem: 'name',
-        sortDirection: 'asc',
-      }
-    );
+    this.datasource.loadOffers({pageNumber: 0, pageSize: 10, sortItem: 'id', sortDirection: 'asc'});
   }
 
   ngAfterViewInit(): void {
@@ -40,13 +33,12 @@ export class OfferComponent implements OnInit, AfterViewInit {
   }
 
   private loadOffers(): void {
-    this.datasource.loadOffers(
-      {
-        pageNumber: this.paginator.pageIndex,
-        pageSize: this.paginator.pageSize,
-        sortItem: 'name',
-        sortDirection: 'asc',
-      });
+    this.datasource.loadOffers({
+      pageNumber: this.paginator.pageIndex,
+      pageSize: this.paginator.pageSize,
+      sortItem: 'id',
+      sortDirection: 'asc'
+    });
   }
 
 }

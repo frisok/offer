@@ -1,54 +1,65 @@
 <div>
   <mat-table [dataSource]="datasource">
+
     <ng-container matColumnDef="offerId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        <span>ID</span>
+      <mat-header-cell *matHeaderCellDef >
+        <span>Id</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
         {{offerTotals.offerId}}
       </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef>
         <span>Name</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
         {{offerTotals.name}}
       </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="url">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        <span>url</span>
+      <mat-header-cell *matHeaderCellDef>
+        <span>Url</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
         {{offerTotals.url}}
       </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="payoutTotal">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef>
         <span>Payout</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
-        {{offerTotals.payoutTotal}}
+        {{offerTotals.payoutTotal  | currency:'EUR':'symbol'}}
       </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="receivedTotal">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef>
         <span>Received</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
-        {{offerTotals.receivedTotal}}
+        {{offerTotals.receivedTotal | currency:'EUR':'symbol'}}
       </mat-cell>
     </ng-container>
-    <!--<ng-container>
+
+    <ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns">
       </mat-header-row>
-    </ng-container>-->
+    </ng-container>
     <mat-row *matRowDef="let offerTotals; columns: displayedColumns">
     </mat-row>
+
   </mat-table>
+
   <div>
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]" [pageIndex]="0">
     </mat-paginator>
   </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="datasource.loading$ | async"></mat-progress-bar>
+
 </div>

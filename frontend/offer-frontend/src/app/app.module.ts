@@ -10,6 +10,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {HttpClientModule} from "@angular/common/http";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {HttpClientModule} from "@angular/common/http";
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressBarModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

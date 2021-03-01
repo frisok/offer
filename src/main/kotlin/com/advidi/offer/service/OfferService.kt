@@ -34,13 +34,15 @@ class OfferService(private val offerRepository: OfferRepository, private val off
 
         var offers: Page<Offer>
         if (name != null) {
-            offers = offerRepository.findByName(name, pageable)
+            offers = offerRepository.findByNameContainingIgnoreCase(name, pageable)
         } else {
             offers = offerRepository.findAll(pageable)
         }
 
         val result: List<OfferTotalsDto> = offers.stream()
-                .map { o -> mapToOfferTotals(o, startDate ?: LocalDateTime.now().minusYears(30), endDate ?: LocalDateTime.now())}
+                .map { o ->
+                    mapToOfferTotals(o, startDate ?: LocalDateTime.now().minusYears(30), endDate ?: LocalDateTime.now())
+                }
                 .collect(Collectors.toList())
 
         log.debug("Request to fetch OfferTotalsDto completed in ${stopWatch.getTime(TimeUnit.MILLISECONDS)} ms")
@@ -53,15 +55,22 @@ class OfferService(private val offerRepository: OfferRepository, private val off
         val firstOfferConversion: OfferConversion? = offerConversionService.findFirstOfferConversionAfter(offer, startDate)
         val lastOfferConversion: OfferConversion? = offerConversionService.findLastOfferConversionBefore(offer, endDate)
 
-        val payoutTotalAtStartDate: BigDecimal = firstOfferConversion?.payoutTotal ?: BigDecimal(0)
-        val payoutTotalAtEndDate: BigDecimal = lastOfferConversion?.payoutTotal ?: BigDecimal(0)
-        val payoutTotalForRange: BigDecimal = payoutTotalAtEndDate.minus(payoutTotalAtStartDate)
+        val payoutTotalForRange: BigDecimal
+        val receivedTotalForRange: BigDecimal
 
-        val receivedTotalAtStartDate: BigDecimal = firstOfferConversion?.receivedTotal ?: BigDecimal(0)
-        val receivedTotalAtEndDate: BigDecimal = lastOfferConversion?.receivedTotal ?: BigDecimal(0)
-        val receivedTotal: BigDecimal = receivedTotalAtEndDate.minus(receivedTotalAtStartDate)
+        if (firstOfferConversion != null && lastOfferConversion != null) {
+            payoutTotalForRange = lastOfferConversion.payoutTotal.minus(firstOfferConversion.payoutTotal)
+            receivedTotalForRange = lastOfferConversion.receivedTotal.minus(firstOfferConversion.receivedTotal)
+        } else if (lastOfferConversion != null) {
+            payoutTotalForRange = lastOfferConversion.payoutTotal
+            receivedTotalForRange = lastOfferConversion.receivedTotal
+        } else {
+            // The startDate is more higher than the endDate or no results found at all, so return zero
+            payoutTotalForRange = BigDecimal(0)
+            receivedTotalForRange = BigDecimal(0)
+        }
 
-        return OfferTotalsDto(offer.id, offer.name, offer.url, payoutTotalForRange, receivedTotal)
+        return OfferTotalsDto(offer.id, offer.name, offer.url, payoutTotalForRange, receivedTotalForRange)
     }
 
 }
