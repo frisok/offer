@@ -1,5 +1,11 @@
-version: "2"
+version: "2.3"
 services:
+  frontend:
+    image: httpd:2.4
+    ports:
+      - 9000:80
+    volumes:
+      - ./frontend/offer-frontend/dist/offer-frontend:/usr/local/apache2/htdocs/
   offerdatabase:
     image: postgres
     environment:
