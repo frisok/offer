@@ -2,7 +2,6 @@ package com.advidi.conversion.service
 
 import com.advidi.conversion.domain.Conversion
 import com.advidi.conversion.repository.ConversionRepository
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,12 +11,8 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class ConversionsService {
 
-    private val log = LoggerFactory.getLogger(javaClass)
-
     @Autowired
     private lateinit var conversionRepository: ConversionRepository;
-
-    fun getConversion(id: Long): Conversion = conversionRepository.getOne(id)
 
     fun findAll(): List<Conversion> = conversionRepository.findAll()
 

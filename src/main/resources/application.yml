@@ -13,7 +13,6 @@ spring:
 logging:
   level:
     com.advidi: DEBUG
-
 offer:
   datasource:
     platform: postgres

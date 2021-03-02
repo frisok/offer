@@ -48,7 +48,7 @@ class OfferService(private val offerRepository: OfferRepository, private val off
                 }
                 .collect(Collectors.toList())
 
-        log.debug("Request to fetch OfferTotalsDto completed in ${stopWatch.getTime(TimeUnit.MILLISECONDS)} ms")
+        log.debug("Request to fetch OfferTotalsDtos completed in ${stopWatch.getTime(TimeUnit.MILLISECONDS)} ms")
 
         return PageImpl(result, pageable, totalNumberOfRecords)
     }
@@ -68,7 +68,7 @@ class OfferService(private val offerRepository: OfferRepository, private val off
             payoutTotalForRange = lastOfferConversion.payoutTotal
             receivedTotalForRange = lastOfferConversion.receivedTotal
         } else {
-            // The startDate is more higher than the endDate or no results found at all, so return zero
+            // The startDate is more higher than the endDate or no results found at all, return zero
             payoutTotalForRange = BigDecimal(0)
             receivedTotalForRange = BigDecimal(0)
         }

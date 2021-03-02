@@ -15,5 +15,4 @@ data class Offer(
 
         @Column
         val name: String
-
 )

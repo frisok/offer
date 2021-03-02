@@ -12,7 +12,6 @@ interface OfferConversionRepository : JpaRepository<OfferConversion, Long> {
     fun findFirstByOfferAndTimestampAfterOrderByTimestampAsc(offer: Offer, startDate: LocalDateTime): List<OfferConversion>
 
     fun findFirstByOfferAndTimestampBeforeOrderByTimestampDesc(offer: Offer, endDate: LocalDateTime): List<OfferConversion>
-
 }
 
 
