@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.format.annotation.DateTimeFormat
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -35,5 +36,12 @@ class OfferRestController(private val offerService: OfferService, private val of
         log.debug("GET request to '/api/offer/totals'")
         return ResponseEntity.ok(offerService.getOfferTotals(name, startDate, endDate, pageable))
     }
+
+    @PostMapping("/login", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun login(
+            @RequestParam(name = "username") username: String,
+            @RequestParam(name = "password") password: String
+    ): ResponseEntity<Void> = ResponseEntity.status(HttpStatus.OK).build()
+
 
 }
