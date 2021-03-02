@@ -1,7 +1,10 @@
 <header>
- <app-header></app-header>
+  <app-header></app-header>
 </header>
 <main role="main" class="container">
   <app-login></app-login>
-  <app-offer></app-offer>
+  <div *ngIf="renderOffers()">
+    <app-offer></app-offer>
+  </div>
+
 </main>

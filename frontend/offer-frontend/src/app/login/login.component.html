@@ -1,9 +1,11 @@
 <div *ngIf="renderLogin()">
   <div class="form-group">
-    <form class="form-horizontal">
-      <input class="form-control col-sm-4 login login_top" type="text" placeholder="User name" aria-label="user" formControlName="user">
-      <input class="form-control col-sm-4 login" type="password" placeholder="Password" aria-label="password" formControlName="password">
-      <button class="btn btn-outline-success login" type="submit">Sign in</button>
+    <form class="form-horizontal" [formGroup]="loginForm">
+      <input class="form-control col-sm-4 login login_top" type="text" placeholder="User name" aria-label="username"
+             formControlName="username">
+      <input class="form-control col-sm-4 login" type="password" placeholder="Password" aria-label="password"
+             formControlName="password">
+      <button class="btn btn-outline-success login" type="submit" (click)="onLogIn()">Sign in</button>
     </form>
   </div>
 </div>

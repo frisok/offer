@@ -39,7 +39,6 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/offer/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../service/auth.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -8,13 +9,22 @@ import {AuthService} from "../service/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  loginForm: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
   }
 
-  renderLogin(): boolean{
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({username: [], password: []});
+  }
+
+  renderLogin(): boolean {
     return !this.authService.isAuthenticated();
+  }
+
+  onLogIn(): void {
+    const loginValues = this.loginForm.getRawValue();
+    this.authService.authenticate(loginValues['username'], loginValues['password']);
   }
 
 }

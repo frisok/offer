@@ -13,42 +13,35 @@ export class AuthService {
   constructor(private httpClient: HttpClient, private sessionStorage: SessionStorageService) {
   }
 
-  private loginUri: string = "/login";
+  private loginUri: string = "/authenticate";
 
-  public authenticate(credentials) {
+  public authenticate(username: string, password: string) {
 
-    const authenticationHeaderValue: string = credentials ? `Basic ${btoa(credentials.username)}:${credentials.password}` : null;
-    const headers = new HttpHeaders(authenticationHeaderValue ? {authorization: authenticationHeaderValue} : {});
+    const authenticationHeaderValue: string = username && password ? 'Basic ' + btoa(username + ':' + password) : null;
+    let headers = new HttpHeaders(authenticationHeaderValue ? {Authorization: authenticationHeaderValue} : {});
 
     this.httpClient.get(`${API_BASE_URL}${this.loginUri}`, {headers: headers})
       .subscribe(response => {
-          this.putAuthenticationToSession(authenticationHeaderValue)
-        }, error => this.removeAuthenticationFromSession(),
-        () => this.notifyAuthenticationChanged());
+        this.putAuthenticationToSession(authenticationHeaderValue)
+      }, error => this.removeAuthenticationFromSession())
   }
 
   public isAuthenticated(): boolean {
     return this.sessionStorage.retrieve(this.authSessionKey) != null;
   }
 
-  public createAuthenticationHeader(): HttpHeaders {
-    if (this.isAuthenticated()) {
-      return new HttpHeaders({authorization: this.sessionStorage.retrieve(this.authSessionKey)});
-    } else {
-      return new HttpHeaders({});
-    }
+  public getAuthenticationHeaderValue(): string {
+    return this.sessionStorage.retrieve(this.authSessionKey);
   }
 
   private putAuthenticationToSession(authenticationHeaderValue: string) {
+    console.log('Authenicated succesfully');
     this.sessionStorage.store(this.authSessionKey, authenticationHeaderValue);
   }
 
   private removeAuthenticationFromSession() {
+    console.log('Authenticion removed');
     this.sessionStorage.clear(this.authSessionKey);
-  }
-
-  private notifyAuthenticationChanged() {
-
   }
 
 }

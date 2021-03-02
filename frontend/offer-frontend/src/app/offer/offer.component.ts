@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {OfferDatasource} from "../service/offer.datasource";
 import {OfferService} from "../service/offer.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {tap} from "rxjs/operators";
-import {AuthService} from "../service/auth.service";
 
 @Component({
   selector: 'app-offer',
@@ -17,7 +16,7 @@ export class OfferComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = ['offerId', 'name', 'url', 'payoutTotal', 'receivedTotal'];
   public datasource: OfferDatasource;
 
-  constructor(private offerService: OfferService, private authService: AuthService) {
+  constructor(private offerService: OfferService) {
   }
 
   ngOnInit(): void {
@@ -40,10 +39,6 @@ export class OfferComponent implements OnInit, AfterViewInit {
       sortItem: 'id',
       sortDirection: 'asc'
     });
-  }
-
-  renderOffers(): boolean{
-    return this.authService.isAuthenticated();
   }
 
 }

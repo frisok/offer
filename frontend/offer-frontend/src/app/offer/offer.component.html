@@ -1,8 +1,8 @@
-<div *ngIf="renderOffers()">
+<div>
   <mat-table [dataSource]="datasource">
 
     <ng-container matColumnDef="offerId">
-      <mat-header-cell *matHeaderCellDef >
+      <mat-header-cell *matHeaderCellDef>
         <span>Id</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
