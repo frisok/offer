@@ -10,4 +10,6 @@ interface OfferRepository : JpaRepository<Offer, Long> {
 
     fun findByNameContainingIgnoreCase(name: String, pageable: Pageable): Page<Offer>
 
+    fun countByNameContainingIgnoreCase(name: String): Long
+
 }

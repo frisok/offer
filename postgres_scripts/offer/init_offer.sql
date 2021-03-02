@@ -22,7 +22,7 @@ CREATE TABLE users (
   password varchar(255) not null
 );
 
-INSERT INTO users values(nextval('public.sequence_generator'), 'user', '123userabc');
+INSERT INTO users values(nextval('public.sequence_generator'), 'user', '$2a$10$6YXMIPb4NwUItrvLtH5AI.TgOtK7GqNFtLk5.KQ5QUqeYuPVfH5uq');
 
 
 

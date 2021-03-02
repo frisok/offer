@@ -24,7 +24,7 @@
         <span>Url</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let offerTotals">
-        {{offerTotals.url}}
+        <a href="{{offerTotals.url}}" target="_blank">{{offerTotals.url}}</a>
       </mat-cell>
     </ng-container>
 
@@ -56,7 +56,8 @@
   </mat-table>
 
   <div>
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]" [pageIndex]="0">
+    <mat-paginator [length]="datasource.length$ | async" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 50]"
+                   [pageIndex]="pageIndex">
     </mat-paginator>
   </div>
 

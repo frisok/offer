@@ -32,11 +32,14 @@ class OfferService(private val offerRepository: OfferRepository, private val off
         val stopWatch = StopWatch()
         stopWatch.start()
 
-        var offers: Page<Offer>
+        val offers: Page<Offer>
+        val totalNumberOfRecords: Long
         if (name != null) {
             offers = offerRepository.findByNameContainingIgnoreCase(name, pageable)
+            totalNumberOfRecords = offerRepository.countByNameContainingIgnoreCase(name);
         } else {
             offers = offerRepository.findAll(pageable)
+            totalNumberOfRecords = offerRepository.count()
         }
 
         val result: List<OfferTotalsDto> = offers.stream()
@@ -47,7 +50,7 @@ class OfferService(private val offerRepository: OfferRepository, private val off
 
         log.debug("Request to fetch OfferTotalsDto completed in ${stopWatch.getTime(TimeUnit.MILLISECONDS)} ms")
 
-        return PageImpl(result)
+        return PageImpl(result, pageable, totalNumberOfRecords)
     }
 
     private fun mapToOfferTotals(offer: Offer, startDate: LocalDateTime, endDate: LocalDateTime): OfferTotalsDto {

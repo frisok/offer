@@ -13,8 +13,11 @@ export class OfferComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  public displayedColumns: string[] = ['offerId', 'name', 'url', 'payoutTotal', 'receivedTotal'];
-  public datasource: OfferDatasource;
+  displayedColumns: string[] = ['offerId', 'name', 'url', 'payoutTotal', 'receivedTotal'];
+  datasource: OfferDatasource;
+
+  pageIndex: number = 0;
+  pageSize: number = 10
 
   constructor(private offerService: OfferService) {
   }

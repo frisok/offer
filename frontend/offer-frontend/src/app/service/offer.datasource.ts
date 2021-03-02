@@ -7,8 +7,13 @@ import {catchError, finalize} from "rxjs/operators";
 export class OfferDatasource implements DataSource<OfferTotals> {
 
   private offerSubject: BehaviorSubject<OfferTotals[]> = new BehaviorSubject<OfferTotals[]>([]);
+
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
+
+  private lengthSubject = new BehaviorSubject<number>(0);
+  public length$ = this.lengthSubject.asObservable();
+
 
   constructor(private offerService: OfferService) {
     this.offerService.offers$
@@ -17,8 +22,9 @@ export class OfferDatasource implements DataSource<OfferTotals> {
         finalize(() => this.loadingSubject.next(false))
       )
       .subscribe(data => {
-        this.loadingSubject.next(false)
+        this.loadingSubject.next(false);
         this.offerSubject.next(data.content);
+        this.lengthSubject.next(data.totalElements);
       });
 
   }
