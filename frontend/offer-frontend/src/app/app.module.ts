@@ -42,4 +42,5 @@ import {AuthInterceptor} from "./service/auth-interceptor.service";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

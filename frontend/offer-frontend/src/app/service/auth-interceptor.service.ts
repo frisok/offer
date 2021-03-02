@@ -16,7 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const authenticationHeaderValue: string = this.authService.getAuthenticationHeaderValue();
     if (authenticationHeaderValue) {
-
       request = request.clone({
         setHeaders: {
           Authorization: authenticationHeaderValue

@@ -35,12 +35,12 @@ export class AuthService {
   }
 
   private putAuthenticationToSession(authenticationHeaderValue: string) {
-    console.log('Authenicated succesfully');
+    console.log('Authenticated succesfully');
     this.sessionStorage.store(this.authSessionKey, authenticationHeaderValue);
   }
 
   private removeAuthenticationFromSession() {
-    console.log('Authenticion removed');
+    console.log('Authentication removed');
     this.sessionStorage.clear(this.authSessionKey);
   }
 

@@ -2,9 +2,11 @@
   <app-header></app-header>
 </header>
 <main role="main" class="container">
-  <app-login></app-login>
-  <div *ngIf="renderOffers()">
+  <span *ngIf="!authenticated()">
+    <app-login></app-login>
+  </span>
+  <span *ngIf="authenticated()">
     <app-offer></app-offer>
-  </div>
+  </span>
 
 </main>

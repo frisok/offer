@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private authService: AuthService) {
   }
 
-  renderOffers(): boolean {
+  authenticated(): boolean {
     return this.authService.isAuthenticated();
   }
 

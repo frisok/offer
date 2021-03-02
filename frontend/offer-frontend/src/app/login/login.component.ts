@@ -18,10 +18,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({username: [], password: []});
   }
 
-  renderLogin(): boolean {
-    return !this.authService.isAuthenticated();
-  }
-
   onLogIn(): void {
     const loginValues = this.loginForm.getRawValue();
     this.authService.authenticate(loginValues['username'], loginValues['password']);
